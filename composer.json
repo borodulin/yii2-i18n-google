@@ -1,0 +1,32 @@
+{
+    "name": "conquer/i18n",
+    "description": "The I18n automatic translation extension for the Yii2 framework",
+    "keywords": ["yii2", "i18n", "google-translate", "yandex-translate"],
+    "homepage": "https://github.com/borodulin/yii2-i18n-google",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/borodulin/yii2-i18n-google/issues",
+        "source": "https://github.com/borodulin/yii2-i18n-google"
+    },
+    "authors": [
+        {
+            "name": "Andrey Borodulin",
+            "email": "borodulin@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": ">=2.0.4",
+        "conquer/helpers": "~2.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+        	"conquer\\i18n\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.0-dev"
+        }
+    }
+}
