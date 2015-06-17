@@ -6,3 +6,19 @@
  */
 
 namespace conquer\i18n\console;
+
+use conquer\i18n\Module;
+/**
+ * 
+ * @author Andrey Borodulin
+ *
+ */
+class TranslateController extends \yii\console\Controller
+{
+    public function actionIndex()
+    {
+        /* @var $module Module */
+        $module = Module::getInstance();
+        $module->cache->flush();
+    }
+}

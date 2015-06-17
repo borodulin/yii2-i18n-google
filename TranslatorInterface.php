@@ -5,7 +5,7 @@
  * @license https://github.com/borodulin/yii2-i18n-google/blob/master/LICENSE
  */
 
-namespace conquer\i18n\translators;
+namespace conquer\i18n;
 
 /**
  *
