@@ -26,15 +26,16 @@ class m150610_162817_i18n extends Migration
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ]);
         
-        $this->createTable('{{%i18m_translated_message}}', [
+        $this->createTable('{{%i18n_translated_message}}', [
                 'id' => Schema::TYPE_INTEGER . 'NOT NULL',
                 'language' => Schema::TYPE_STRING . '(16) NOT NULL',
-                'translator' => Schema::TYPE_STRING . '(20) NOT NULL',
+                'translator' => Schema::TYPE_STRING . '(32)',
                 'translation' => Schema::TYPE_TEXT,
                 'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-                'PRIMARY KEY (id, language, translator)',
+                'error_message' => Schema::TYPE_TEXT,
+                'PRIMARY KEY (id, language)',
         ]);
         $this->addforeignkey('fk_i18n_translated_message_message', '{{%i18n_message}}', 'id', '{{%i18n_translated_message}}', 'id', 'cascade', 'cascade');
         $this->createIndex('ix_', '{{%i18n_translated_message}}', 'status');

@@ -7,21 +7,55 @@
 
 namespace conquer\i18n\translators;
 
+use yii\base\Object;
+use yii\base\InvalidConfigException;
+use conquer\i18n\TranslatorInterface;
+use conquer\helpers\Curl;
+use conquer\helpers\conquer\helpers;
+use conquer\helpers\conquer\helpers;
+
 /**
  *
  * @author Andrey Borodulin
  */
-class GoogleTranslator implements TranslateInterface
+class GoogleTranslator extends Object implements TranslatorInterface
 {
-    public function translate($text, $sourceLang, $targetLang, $format)
+    public $apiKey;
+    
+    public $prettyprint = false;
+    
+    public function init()
     {
+        parent::init();
         
+        if(empty($this->apiKey))
+            throw new InvalidConfigException('Google Api key required');
+    }
+    
+    public function translate($text, $sourceLang, $targetLang, $format = 'text')
+    {
+        $curl = new Curl('https://www.googleapis.com/language/translate/v2?'.http_build_query([
+            'key' => $this->apiKey,
+            'q' => $text,
+            'source' =>$sourceLang,
+            'target' => $targetLang,
+            'format' => $format,
+            'prettyprint' => $this->prettyprint,
+        ]));
+        if($curl->execute()){
+            
+        }
     }
     
 
     public function languages()
     {
-        
+        $curl = new Curl('https://www.googleapis.com/language/translate/v2/languages?'.http_build_query([
+            'key' => $this->apiKey,
+        ]));
+        if($curl->execute()){
+            
+        }
     }
     
         /**
@@ -30,6 +64,12 @@ class GoogleTranslator implements TranslateInterface
         */
     public function detect($text)
     {
+        $curl = new Curl('https://www.googleapis.com/language/translate/v2/detect?'.http_build_query([
+                'key' => $this->apiKey,
+                'q' => $text,
+        ]));
+        if($curl->execute()){
         
+        }
     }
 }

@@ -20,7 +20,7 @@ interface TranslatorInterface
      * @param string $targetLang
      * @param string $format html|text
      */
-    public function translate($text, $sourceLang, $targetLang, $format);
+    public function translate($text, $sourceLang, $targetLang, $format = 'text');
 
     /**
      * Discover Supported Languages
@@ -32,4 +32,5 @@ interface TranslatorInterface
      * @param string $text
      */
     public function detect($text);
+    
 }
