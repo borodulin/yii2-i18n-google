@@ -32,6 +32,11 @@ or add
 
 to the ```require``` section of your `composer.json` file.
 
+To create database tables run migration command
+```
+$ yii migrate --migrationPath=@conquer/i18n/migrations
+```
+
 # Usage
 
 You need to configurate Module and i18n component
