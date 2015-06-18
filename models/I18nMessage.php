@@ -9,6 +9,7 @@ namespace conquer\i18n\models;
 
 use conquer\i18n\Module;
 use yii\helpers\ArrayHelper;
+use yii\db\Query;
 
 /**
  *
@@ -84,13 +85,15 @@ class I18nMessage extends \yii\db\ActiveRecord
      */
     public static function loadMessagesFromDb($category, $language)
     {
-        $messages = I18nTranslation::find()
-            ->with('message')
-            ->where(['language' => $language])
-           // ->params(['category'=>$category])
-            ->asArray()
-            ->all();
-        return ArrayHelper::map($messages, 'message.message', 'translation');
+        $mainQuery = new Query();
+        $mainQuery->select(['t1.message', 't2.translation'])
+        ->from([I18nMessage::tableName().' t1', I18nTranslation::tableName().' t2'])
+        ->where('t1.message_id = t2.message_id AND t1.category = :category AND t2.language = :language')
+        ->params([':category' => $category, ':language' => $language]);
+        
+        $messages = $mainQuery->createCommand()->queryAll();
+        
+        return ArrayHelper::map($messages, 'message', 'translation');
     }
     
 }
