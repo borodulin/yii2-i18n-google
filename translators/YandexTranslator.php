@@ -9,7 +9,9 @@ namespace conquer\i18n\translators;
 
 use yii\base\Object;
 use conquer\i18n\TranslatorInterface;
-use conquer\helpers\Curl;
+use conquer\helpers\CurlTrait;
+use yii\helpers\Json;
+use yii\helpers\VarDumper;
 
 /**
  * 
@@ -17,40 +19,54 @@ use conquer\helpers\Curl;
  */
 class YandexTranslator extends Object implements TranslatorInterface
 {
+    use CurlTrait;
+    
     public $apiKey;
 
     
-    public function translate($text, $sourceLang, $targetLang, $format)
+    public function translate($text, $sourceLang, $targetLang, $format = 'text')
     {
-        $curl = new Curl('https://translate.yandex.net/api/v1.5/tr.json/translate?'.http_build_query([
+        $sourceLang = explode('-', $sourceLang)[0];
+        $targetLang = explode('-', $targetLang)[0];
+        $this->setUrl('https://translate.yandex.net/api/v1.5/tr.json/translate?'.http_build_query([
             'key' => $this->apiKey,
             'text' => $text,
             'format' => ($format === 'text')? 'plain' : $format,
             'lang' => "$sourceLang-$targetLang",
         ]));
-        if($curl->execute()){
-            
+        $this->curl_execute();
+        if($this->isHttpOK()){
+            $result = Json::decode($this->_content);
+            return isset($result['text'][0]) ? $result['text'][0] : null;
         }
+        return null;
     }
     
     public function languages()
     {
-        $curl = new Curl('https://translate.yandex.net/api/v1.5/tr.json/getLangs?'.http_build_query([
+        $this->setUrl('https://translate.yandex.net/api/v1.5/tr.json/getLangs?'.http_build_query([
             'key' => $this->apiKey,
         ]));
-        if($curl->execute()){
+        $this->curl_execute();
+        if($this->isHttpOK()){
             
         }
     }
     
     public function detect($text)
     {
-        $curl = new Curl('https://translate.yandex.net/api/v1.5/tr.json/detect?'.http_build_query([
+        $this->setUrl('https://translate.yandex.net/api/v1.5/tr.json/detect?'.http_build_query([
             'key' => $this->apiKey,
             'text' => $text,
         ]));
-        if($curl->execute()){
-        
+        $this->curl_execute();
+        if($this->isHttpOK()){
+            
         }
+    }
+    
+    public function getError()
+    {
+        return $this->_errorMessage ? $this->_errorMessage : $this->_content;
     }
 }

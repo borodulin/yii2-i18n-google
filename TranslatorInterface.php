@@ -19,18 +19,26 @@ interface TranslatorInterface
      * @param string $sourceLang
      * @param string $targetLang
      * @param string $format html|text
+     * @return string
      */
     public function translate($text, $sourceLang, $targetLang, $format = 'text');
 
     /**
      * Discover Supported Languages
+     * @return array
      */
     public function languages();
     
     /**
      * Detect Language
      * @param string $text
+     * @return string
      */
     public function detect($text);
+    
+    /**
+     * @return string 
+     */
+    public function getError();
     
 }
