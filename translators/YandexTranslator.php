@@ -11,7 +11,6 @@ use yii\base\Object;
 use conquer\i18n\TranslatorInterface;
 use conquer\helpers\CurlTrait;
 use yii\helpers\Json;
-use yii\helpers\VarDumper;
 
 /**
  * 
@@ -26,8 +25,6 @@ class YandexTranslator extends Object implements TranslatorInterface
     
     public function translate($text, $sourceLang, $targetLang, $format = 'text')
     {
-        $sourceLang = explode('-', $sourceLang)[0];
-        $targetLang = explode('-', $targetLang)[0];
         $this->setUrl('https://translate.yandex.net/api/v1.5/tr.json/translate?'.http_build_query([
             'key' => $this->apiKey,
             'text' => $text,

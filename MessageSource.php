@@ -111,7 +111,9 @@ class MessageSource extends \yii\i18n\MessageSource
                 $i18nTranslator = I18nTranslator::getTranslator(get_class($this->translator));
                 $i18nTranslation = $i18nMessage->getTranslation($language, $i18nTranslator);
                 $i18nTranslation->translator_id = $i18nTranslator->translator_id;
-                $translation = $this->translator->translate($message, $this->sourceLanguage, $language);
+                $sourceLang = explode('-', $this->sourceLanguage)[0];
+                $targetLang = explode('-', $language)[0];
+                $translation = $this->translator->translate($message, $sourceLang, $targetLang);
                 if ($translation) {
                     $i18nTranslation->translation = $translation;
                     $i18nTranslation->status = I18nTranslation::STATUS_DONE;

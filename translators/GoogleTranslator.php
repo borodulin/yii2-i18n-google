@@ -11,7 +11,6 @@ use yii\base\Object;
 use yii\base\InvalidConfigException;
 use conquer\i18n\TranslatorInterface;
 use conquer\helpers\CurlTrait;
-use yii\helpers\VarDumper;
 use yii\helpers\Json;
 
 /**
@@ -46,8 +45,8 @@ class GoogleTranslator extends Object implements TranslatorInterface
         ]));
         $this->curl_execute();
         if($this->isHttpOK()){
-            $result = Json::decode($this->_content);
-            VarDumper::dump($result);
+            return isset($result['data']['translations'][0]['translatedText']) ? 
+                $result['data']['translations'][0]['translatedText'] : null;
         }
         return null;
     }
