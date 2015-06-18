@@ -39,7 +39,7 @@ $ yii migrate --migrationPath=@conquer/i18n/migrations
 
 # Usage
 
-You need to configurate Module and i18n component
+You need to configure Module and i18n component
 
 ```php
 $config = [
