@@ -65,7 +65,7 @@ Use \Yii::t function to translate messages
 ```php
 <h1><?= \Yii::t('app', 'Congratulations!') ?></h1>
 ```
-** * ** Translation category is used by default for all non-translated messages.
+**"*"** Translation category is used by default for all non-translated messages.
 
 You can configure a separate category for the translation of messages by external translator.
 ```php
