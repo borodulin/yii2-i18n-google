@@ -61,6 +61,33 @@ $config = [
     ],
 ];
 ```
+Use \Yii::t function to translate messages
+```php
+<h1><?= \Yii::t('app', 'Congratulations!') ?></h1>
+```
+***** Translation category is used by default for all non-translated messages.
+
+You can configure a separate category for the translation of messages by external translator.
+```php
+    'components' => [
+        'i18n' => [
+            'class' => 'yii\i18n\I18N',
+            'translations' => [
+                'yandex' => [
+                    'class' => 'conquer\i18n\MessageSource',
+                    'translator' => [
+                        'class'=>'conquer\i18n\translators\YandexTranslator',
+                        'apiKey' => '[yandex form](https://tech.yandex.com/keys/get/?service=trnsl)',
+                    ],
+                ],
+            ],
+        ],
+    ],
+```
+Use \Yii::t function to translate messages in "yandex" category
+```php
+<h1><?= \Yii::t('yandex', 'Congratulations!') ?></h1>
+```
 
 # License
 
