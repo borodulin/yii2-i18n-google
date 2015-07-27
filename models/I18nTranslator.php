@@ -8,7 +8,15 @@
 namespace conquer\i18n\models;
 
 /**
+ * This is the model class for table "{{%i18n_translator}}".
  *
+ * @property integer $translator_id
+ * @property string $class_name
+ * @property integer $created_at
+ * @property integer $updated_at
+ *
+ * @property I18nTranslation[] $i18nTranslations
+ * 
  * @author Andrey Borodulin
  */
 class I18nTranslator extends \yii\db\ActiveRecord
@@ -21,12 +29,47 @@ class I18nTranslator extends \yii\db\ActiveRecord
         return '{{%i18n_translator}}';
     }
     
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['class_name'], 'required'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['class_name'], 'string', 'max' => 255],
+            [['class_name'], 'unique']
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'translator_id' => 'Translator ID',
+            'class_name' => 'Class Name',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+    
     public function behaviors()
     {
         return [
-            ['class' => \yii\behaviors\TimestampBehavior::className()],
+            \yii\behaviors\TimestampBehavior::className(),
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getI18nTranslations()
+    {
+        return $this->hasMany(I18nTranslation::className(), ['translator_id' => 'translator_id']);
+    }
+    
     /**
      * 
      * @param string $className
@@ -44,6 +87,7 @@ class I18nTranslator extends \yii\db\ActiveRecord
         }
         return self::$_translators[$className];
     }
+    
     /**
      * 
      * @param string $category
