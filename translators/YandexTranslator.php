@@ -7,7 +7,8 @@
 
 namespace conquer\i18n\translators;
 
-use yii\base\Object;
+use yii\base\BaseObject;
+//use yii\base\Object;
 use conquer\i18n\TranslatorInterface;
 use conquer\helpers\CurlTrait;
 use yii\helpers\Json;
@@ -16,7 +17,7 @@ use yii\helpers\Json;
  * 
  * @author Andrey Borodulin
  */
-class YandexTranslator extends Object implements TranslatorInterface
+class YandexTranslator extends BaseObject implements TranslatorInterface
 {
     use CurlTrait;
     
