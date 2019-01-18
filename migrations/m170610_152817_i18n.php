@@ -28,7 +28,7 @@ class m170610_152817_i18n extends Migration
         
         $this->createTable('{{%i18n_translator}}', [
                 'translator_id' => Schema::TYPE_PK,
-                'class_name' => Schema::TYPE_STRING  . ' NOT NULL',
+                'class_name' => Schema::TYPE_STRING  . '(80) NOT NULL',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ]);
