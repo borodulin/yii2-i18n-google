@@ -7,7 +7,7 @@
 
 namespace conquer\i18n\translators;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 use yii\base\InvalidConfigException;
 use conquer\i18n\TranslatorInterface;
 use conquer\helpers\CurlTrait;
@@ -17,7 +17,7 @@ use yii\helpers\Json;
  *
  * @author Andrey Borodulin
  */
-class GoogleTranslator extends Object implements TranslatorInterface
+class GoogleTranslator extends BaseObject implements TranslatorInterface
 {
     use CurlTrait;
     
