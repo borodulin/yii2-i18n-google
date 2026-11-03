@@ -58,10 +58,8 @@ $config = [
                 '*' => [
                     'class' => 'conquer\i18n\MessageSource',
                     'translator' => [
-                     //   'class'=>'conquer\i18n\translators\GoogleTranslator',
-                     //   'apiKey' => 'obtain API key in the google developer console',
-                        'class'=>'conquer\i18n\translators\YandexTranslator',
-                        'apiKey' => '[yandex form](https://tech.yandex.com/keys/get/?service=trnsl)',
+                        'class' => 'conquer\i18n\translators\GoogleTranslator',
+                        'apiKey' => 'obtain API key in the Google Cloud console',
                     ],
                 ],
             ],
@@ -96,6 +94,15 @@ Use \Yii::t function to translate messages in "yandex" category
 ```php
 <h1><?= \Yii::t('yandex', 'Congratulations!') ?></h1>
 ```
+
+## Notes
+
+- A message whose machine translation failed (or is pending) is not sent to the translation API again on
+  every request; fix or fill it in the `i18n_translation` table.
+- `yii translate` (console) flushes cached translations.
+- The bundled CRUD controllers (`controllers/I18nMessageController`, `controllers/I18nTranslationController`)
+  are templates for your application: they are not routed by the module, require the `admin` RBAC role
+  (`$allowedRoles`) and use `yiisoft/yii2-bootstrap` views.
 
 ## License
 

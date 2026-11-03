@@ -103,6 +103,9 @@ class MessageSource extends \yii\i18n\MessageSource
         }
         if (isset($this->_messages[$key][$message])) {
             return $this->_messages[$key][$message];
+        } elseif (is_array($this->_messages[$key]) && array_key_exists($message, $this->_messages[$key])) {
+            // translation is pending or has failed: do not call the external API on every request
+            return false;
         } else {
             $i18nMessage = I18nMessage::getMessage($category, $message);
             if ($this->async) {

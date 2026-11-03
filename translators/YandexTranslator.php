@@ -17,6 +17,9 @@ use yii\helpers\Json;
  * 
  * @author Andrey Borodulin
  */
+/**
+ * @deprecated Yandex.Translate API v1.5 has been shut down by Yandex; this translator no longer works.
+ */
 class YandexTranslator extends BaseObject implements TranslatorInterface
 {
     use CurlTrait;

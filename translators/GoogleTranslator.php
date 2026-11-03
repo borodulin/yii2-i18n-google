@@ -35,7 +35,7 @@ class GoogleTranslator extends BaseObject implements TranslatorInterface
     
     public function translate($text, $sourceLang, $targetLang, $format = 'text')
     {
-        $this->setUrl('https://www.googleapis.com/language/translate/v2?'.http_build_query([
+        $this->setUrl('https://translation.googleapis.com/language/translate/v2?'.http_build_query([
             'key' => $this->apiKey,
             'q' => $text,
             'source' =>$sourceLang,
@@ -54,7 +54,7 @@ class GoogleTranslator extends BaseObject implements TranslatorInterface
 
     public function languages()
     {
-        $this->setUrl('https://www.googleapis.com/language/translate/v2/languages?'.http_build_query([
+        $this->setUrl('https://translation.googleapis.com/language/translate/v2/languages?'.http_build_query([
             'key' => $this->apiKey,
         ]));
         if($this->execute()){
@@ -68,7 +68,7 @@ class GoogleTranslator extends BaseObject implements TranslatorInterface
         */
     public function detect($text)
     {
-        $this->setUrl('https://www.googleapis.com/language/translate/v2/detect?'.http_build_query([
+        $this->setUrl('https://translation.googleapis.com/language/translate/v2/detect?'.http_build_query([
                 'key' => $this->apiKey,
                 'q' => $text,
         ]));

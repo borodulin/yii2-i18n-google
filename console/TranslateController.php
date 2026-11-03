@@ -7,7 +7,8 @@
 
 namespace conquer\i18n\console;
 
-use conquer\i18n\Module;
+use conquer\i18n\MessageSource;
+
 /**
  * 
  * @author Andrey Borodulin
@@ -15,10 +16,17 @@ use conquer\i18n\Module;
  */
 class TranslateController extends \yii\console\Controller
 {
+    /**
+     * Flushes cached translations of conquer\i18n\MessageSource
+     */
     public function actionIndex()
     {
-        /* @var $module Module */
-        $module = Module::getInstance();
-        $module->cache->flush();
+        foreach (\Yii::$app->i18n->translations as $category => $config) {
+            $source = \Yii::$app->i18n->getMessageSource($category === '*' ? 'any-category' : $category);
+            if ($source instanceof MessageSource && $source->enableCaching) {
+                $source->cache->flush();
+                $this->stdout("Cache of '$category' flushed\n");
+            }
+        }
     }
 }
