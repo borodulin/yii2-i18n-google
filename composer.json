@@ -23,7 +23,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "yiisoft/yii2": "^2.0.13",
-        "conquer/helpers": "~2.0.6"
+        "conquer/helpers": "^2.2"
     },
     "autoload": {
         "psr-4": {
