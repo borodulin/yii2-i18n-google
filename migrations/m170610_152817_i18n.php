@@ -17,21 +17,26 @@ class m170610_152817_i18n extends Migration
 {
     // Use safeUp/safeDown to run migration code within a transaction
     public function safeUp()
-    {   
+    {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // utf8mb4: translations are in any language
+            $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+        }
         $this->createTable('{{%i18n_message}}', [
                 'message_id' => Schema::TYPE_PK,
                 'category' => Schema::TYPE_STRING . '(32) NOT NULL',
                 'message' => Schema::TYPE_TEXT . ' NOT NULL',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-        ]);
+        ], $tableOptions);
         
         $this->createTable('{{%i18n_translator}}', [
                 'translator_id' => Schema::TYPE_PK,
                 'class_name' => Schema::TYPE_STRING  . '(80) NOT NULL',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-        ]);
+        ], $tableOptions);
         
         $this->createTable('{{%i18n_translation}}', [
                 'message_id' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -43,7 +48,7 @@ class m170610_152817_i18n extends Migration
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'error_message' => Schema::TYPE_TEXT,
                 'PRIMARY KEY (message_id, language)',
-        ]);
+        ], $tableOptions);
         $this->addforeignkey('fk_i18n_translation_message', '{{%i18n_translation}}', 'message_id', '{{%i18n_message}}', 'message_id', 'cascade', 'cascade');
         $this->addforeignkey('fk_i18n_translation_translator', '{{%i18n_translation}}', 'translator_id', '{{%i18n_translator}}', 'translator_id', 'cascade', 'cascade');
         $this->createIndex('ix_i18n_translation_status', '{{%i18n_translation}}', 'status');

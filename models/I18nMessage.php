@@ -43,7 +43,7 @@ class I18nMessage extends \yii\db\ActiveRecord
             [['category', 'message'], 'required'],
             [['message'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
-            [['category'], 'string', 'max' => 32]
+            [['category'], 'string', 'max' => 64]
         ];
     }
     
